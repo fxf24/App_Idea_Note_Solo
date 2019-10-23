@@ -1,9 +1,11 @@
 package com.example.screen_manager2;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -11,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     ListView idea_list;
     ArrayList<Idea_Data> list_data;
     List_Adapter adapter;
+    int i = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +55,27 @@ public class MainActivity extends AppCompatActivity {
         adapter = new List_Adapter(this, list_data);
         idea_list.setAdapter(adapter);
 
-//        GetListThread glt = new GetListThread();
-//        glt.start();
 
+        idea_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                Log.d("test", "item long clickec : " + position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("삭제")
+                    .setMessage("삭제하시겠습니까?")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DeleteThread deleteThread = new DeleteThread(list_data.get(position).idx);
+                                deleteThread.start();
+                            }
+                        })
+                        .setNegativeButton("취소", null)
+                        .show();
+
+                return true;
+            }
+        });
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onPositiveClick(String title, String desc, String link) {
                         UploadThread ut = new UploadThread(title, desc, link);
                         ut.start();
-                        list_data.add(new Idea_Data(title,desc,link,today));
-                        adapter.notifyDataSetChanged();
                     }
                     @Override
                     public void onNegativeClick() {
@@ -98,8 +120,23 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(this,"setting" ,Toast.LENGTH_SHORT).show();
+        if (id == R.id.trigger) {
+            if(i == 1){
+                adapter.setShowButtonListener(new List_Adapter.ShowButtonListener() {
+                    @Override
+                    public void showButton(View v) {
+                        Button b1 = v.findViewById(R.id.modify);
+                        b1.setVisibility(View.VISIBLE);
+                    }
+                });
+                item.setTitle("편집취소");
+                i = 0;
+            }
+            else{
+                item.setTitle("편집");
+                i = 1;
+            }
+            Toast.makeText(this,"change" ,Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -135,8 +172,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Request request = builder.build();
                 Call call=client.newCall(request);
-                NetworkCallback nc = new NetworkCallback();
-                call.enqueue(nc);
+                call.execute();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onResume();
+                    }
+                });
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -157,33 +199,47 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(nc);
         }
     }
-    class NetworkCallback implements Callback{
 
-        @Override
-        public void onFailure(Call call, IOException e) {
-            Log.d("test", "fail");
+    class DeleteThread extends Thread{
+        int idx;
+        public DeleteThread(int idx){
+            this.idx = idx;
         }
-
         @Override
-        public void onResponse(Call call, Response response) throws IOException {
+        public void run() {
+            super.run();
             try{
-                String result = response.body().string();
+                OkHttpClient client = new OkHttpClient();
+                Request.Builder builder = new Request.Builder();
+                builder = builder.url("http://192.168.122.72:8080/NetworkProjectServer/delete_list.jsp");
 
-                if(result.trim().equals("OK")){
+                FormBody.Builder builder2 = new FormBody.Builder();
+                builder2.add("idea_idx", String.valueOf(idx));
 
-                }
+                FormBody body = builder2.build();
+                builder = builder.post(body);
+
+                Request request = builder.build();
+                Call call=client.newCall(request);
+                call.execute();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        onResume();
+                    }
+                });
             }
             catch (Exception e){
                 e.printStackTrace();
             }
         }
     }
-
     class NetworkDataCallback implements Callback{
 
         @Override
         public void onFailure(Call call, IOException e) {
-
+            Log.d("test", e.toString());
         }
 
         @Override
@@ -198,7 +254,10 @@ public class MainActivity extends AppCompatActivity {
                 for(int i =0; i<root.length(); i++){
                     JSONObject obj = root.getJSONObject(i);
 
-                    list_data.add(new Idea_Data(obj.getString("idea_title"),obj.getString("idea_desc"),obj.getString("idea_link"),obj.getString("idea_date")));
+                    Idea_Data id = new Idea_Data(obj.getString("idea_title"),obj.getString("idea_desc"),obj.getString("idea_link"),obj.getString("idea_date"));
+                    id.idx = obj.getInt("idea_idx");
+                    list_data.add(id);
+
                     Log.d("test", obj.getString("idea_title"));
                 }
 

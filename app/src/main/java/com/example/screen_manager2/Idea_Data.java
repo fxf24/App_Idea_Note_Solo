@@ -7,6 +7,7 @@ public class Idea_Data {
     private String memo;
     private String link;
     private String date;
+    int idx;
 
     public Idea_Data(String title, String memo, String link, String date){
         this.title = title;

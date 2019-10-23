@@ -1,10 +1,13 @@
 package com.example.screen_manager2;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 public class List_Adapter extends BaseAdapter {
     private ArrayList<Idea_Data> container;
     private Context context;
+    private ShowButtonListener showButtonListener;
 
     public List_Adapter(Context context, ArrayList<Idea_Data> container){
         this.container=container;
@@ -45,5 +49,12 @@ public class List_Adapter extends BaseAdapter {
         t2.setText(container.get(position).getMemo());
 
         return convertView;
+    }
+
+    public  void setShowButtonListener(ShowButtonListener showButtonListener){
+        this.showButtonListener = showButtonListener;
+    }
+    public interface ShowButtonListener{
+        void showButton(View v);
     }
 }
