@@ -10,22 +10,22 @@ APK파일을 이용한 설치 또는 클론 다운 이후 안드로이드 스튜
 
 사용법 (Getting Started)
 -------------
-<img src="./start.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/start.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 앱 실행시 뜨는 화면  
 
-<img src="./show.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/show.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 아이디어를 터치시 뜨는 화면  
 
-<img src="./add.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/add.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 우하단에 있는 빨간 버튼을 누를시 뜨는 아이디어 추가 다이어그램  
 
-<img src="./delete.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/delete.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 삭제하고자 하는 아이디어를 꾹 누르면 뜨는 화면  
 
-<img src="./modify.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/modify.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 우상단 편집버튼을 누를시 뜨는 화면
 
-<img src="./modify2.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+<img src="./image/modify2.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 편집하고자하는 아이디어의 편집버튼을 누를시 뜨는 화면  
 
 파일 정보 및 목록 (File Manifest)
