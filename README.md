@@ -22,6 +22,9 @@ APK파일을 이용한 설치 또는 클론 다운 이후 안드로이드 스튜
 <img src="./modify.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 우상단 편집버튼을 누를시 뜨는 화면
 
+<img src="./modify2.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+편집하고자하는 아이디어의 편집버튼을 누를시 뜨는 화면  
+
 파일 정보 및 목록 (File Manifest)
 -------------
 MainActivity로만 이루어져있는 간단한 앱
