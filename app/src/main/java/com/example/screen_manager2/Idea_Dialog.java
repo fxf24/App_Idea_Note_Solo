@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 public class Idea_Dialog extends Dialog implements View.OnClickListener{
     EditText et1, et2, et3;
     Button btn1, btn2;
-
+    String title = "", desc = "", link = "";
     private CustomDialogListener dialogListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +31,15 @@ public class Idea_Dialog extends Dialog implements View.OnClickListener{
         et2 = findViewById(R.id.idea_description);
         et3 = findViewById(R.id.reference);
 
+        et1.setText(title);
+        et2.setText(desc);
+        et3.setText(link);
+
         btn1 = findViewById(R.id.positive);
         btn2 = findViewById(R.id.negative);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
-
-
     }
 
     public Idea_Dialog(@NonNull Context context){
@@ -69,5 +71,9 @@ public class Idea_Dialog extends Dialog implements View.OnClickListener{
         void onNegativeClick();
     }
 
-
+    public void setDialog(String title, String desc, String link){
+        this.title = title;
+        this.desc = desc;
+        this.link = link;
+    }
 }

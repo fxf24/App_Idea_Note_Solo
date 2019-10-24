@@ -1,13 +1,12 @@
 package com.example.screen_manager2;
 
-import java.util.Date;
-
 public class Idea_Data {
     private String title;
     private String memo;
     private String link;
     private String date;
     int idx;
+    int visibility;
 
     public Idea_Data(String title, String memo, String link, String date){
         this.title = title;

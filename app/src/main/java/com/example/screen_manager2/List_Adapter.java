@@ -1,25 +1,24 @@
 package com.example.screen_manager2;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class List_Adapter extends BaseAdapter {
+public class List_Adapter extends BaseAdapter implements View.OnClickListener{
     private ArrayList<Idea_Data> container;
     private Context context;
-    private ShowButtonListener showButtonListener;
+    ListitemPosition listitemPosition;
 
     public List_Adapter(Context context, ArrayList<Idea_Data> container){
         this.container=container;
         this.context=context;
+        listitemPosition = (ListitemPosition)context;
     }
     @Override
     public int getCount() {
@@ -44,17 +43,32 @@ public class List_Adapter extends BaseAdapter {
 
         TextView t1 = convertView.findViewById(R.id.idea_name);
         TextView t2 = convertView.findViewById(R.id.description);
+        TextView t3 = convertView.findViewById(R.id.idea_date);
+        Button b1 = convertView.findViewById(R.id.modify);
+
+        b1.setVisibility(container.get(position).visibility);
+        b1.setOnClickListener(this);
+        b1.setTag(position);
 
         t1.setText(container.get(position).getTitle());
         t2.setText(container.get(position).getMemo());
+        t3.setText(container.get(position).getDate());
 
         return convertView;
     }
 
-    public  void setShowButtonListener(ShowButtonListener showButtonListener){
-        this.showButtonListener = showButtonListener;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.modify:
+                if(listitemPosition != null)
+                    listitemPosition.showClickPosition((int)v.getTag());
+                break;
+        }
     }
-    public interface ShowButtonListener{
-        void showButton(View v);
+
+    public interface ListitemPosition{
+        void showClickPosition(int position);
     }
+
 }

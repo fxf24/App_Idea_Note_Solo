@@ -29,14 +29,14 @@
         <EditText
             android:id="@+id/idea_description"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="300dp"
             android:focusableInTouchMode="true"
             android:background="?attr/colorBackgroundFloating"
             android:scrollbars="vertical"
             android:gravity="top"
             android:hint="번뜩이는 생각"
             android:inputType="textMultiLine"
-            android:maxLength="100" />
+            android:maxLength="500" />
 
         <TextView
             android:layout_margin="10dp"
