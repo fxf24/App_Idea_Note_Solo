@@ -1,11 +1,13 @@
 package com.example.screen_manager2;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,6 +43,10 @@ public class List_Adapter extends BaseAdapter implements View.OnClickListener{
         if(convertView==null)
             convertView = inflater.inflate(R.layout.list_layout,null);
 
+        LinearLayout l1 =convertView.findViewById(R.id.idea_list);
+        l1.setOnClickListener(this);
+        l1.setTag(position);
+
         TextView t1 = convertView.findViewById(R.id.idea_name);
         TextView t2 = convertView.findViewById(R.id.description);
         TextView t3 = convertView.findViewById(R.id.idea_date);
@@ -60,15 +66,19 @@ public class List_Adapter extends BaseAdapter implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.idea_list:
+                if(listitemPosition != null)
+                    listitemPosition.showClickPosition((int)v.getTag(), 0);
+                break;
             case R.id.modify:
                 if(listitemPosition != null)
-                    listitemPosition.showClickPosition((int)v.getTag());
+                    listitemPosition.showClickPosition((int)v.getTag(), 1);
                 break;
         }
     }
 
     public interface ListitemPosition{
-        void showClickPosition(int position);
+        void showClickPosition(int position, int flag);
     }
 
 }

@@ -77,6 +77,13 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
             }
         });
 
+        idea_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("test", "onitemclick : " + position);
+            }
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,25 +157,33 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
     }
 
     @Override
-    public void showClickPosition(final int position) {
-        Idea_Dialog idea_dialog = new Idea_Dialog(MainActivity.this);
-        idea_dialog.setDialog(list_data.get(position).getTitle(),list_data.get(position).getMemo(),list_data.get(position).getLink());
-        idea_dialog.setCustomDialogListener(new Idea_Dialog.CustomDialogListener() {
-            @Override
-            public void onPositiveClick(String title, String desc, String link) {
-                UpdateThread updateThread = new UpdateThread(title, desc, link, String.valueOf(list_data.get(position).idx));
-                updateThread.start();
+    public void showClickPosition(final int position, int flag) {
+        if(flag == 0){
+            Idea_Show idea_show = new Idea_Show(MainActivity.this);
+            idea_show.setDialog(list_data.get(position).getTitle(), list_data.get(position).getMemo(), list_data.get(position).getLink());
+            idea_show.show();
+        }
+        else {
+            Idea_Dialog idea_dialog = new Idea_Dialog(MainActivity.this);
+            idea_dialog.setDialog(list_data.get(position).getTitle(), list_data.get(position).getMemo(), list_data.get(position).getLink());
+            idea_dialog.setCustomDialogListener(new Idea_Dialog.CustomDialogListener() {
+                @Override
+                public void onPositiveClick(String title, String desc, String link) {
+                    UpdateThread updateThread = new UpdateThread(title, desc, link, String.valueOf(list_data.get(position).idx));
+                    updateThread.start();
 
-                ActionMenuItemView menuItem =findViewById(R.id.trigger);
-                menuItem.setTitle("편집");
-                i=1;
-            }
-            @Override
-            public void onNegativeClick() {
-                Log.d("test", "cancel");
-            }
-        });
-        idea_dialog.show();
+                    ActionMenuItemView menuItem = findViewById(R.id.trigger);
+                    menuItem.setTitle("편집");
+                    i = 1;
+                }
+
+                @Override
+                public void onNegativeClick() {
+                    Log.d("test", "cancel");
+                }
+            });
+            idea_dialog.show();
+        }
     }
 
     class UploadThread extends Thread{
