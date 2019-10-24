@@ -22,8 +22,8 @@ Copyright@ 2019 Nomalman
 
 배포자 및 개발자의 연락처 정보 (Contact Information)
 -------------
-김승겸
-Tel: 010-2683-7449
+김승겸  
+Tel: 010-2683-7449  
 email: fxf24@naver.com
 
 알려진 버그 (Known Issues)
