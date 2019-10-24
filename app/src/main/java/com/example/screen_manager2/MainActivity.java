@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
             try{
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder = builder.url("http://192.168.122.33:8080/NetworkProjectServer/upload.jsp");
+                builder = builder.url("http://192.168.122.85:8080/NetworkProjectServer/upload.jsp");
 
                 FormBody.Builder builder2 = new FormBody.Builder();
                 builder2.add("idea_title", title);
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
             try{
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder = builder.url("http://192.168.122.33:8080/NetworkProjectServer/update_list.jsp");
+                builder = builder.url("http://192.168.122.85:8080/NetworkProjectServer/update_list.jsp");
 
                 FormBody.Builder builder2 = new FormBody.Builder();
                 builder2.add("idea_title", title);
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
             super.run();
             OkHttpClient client = new OkHttpClient();
             Request.Builder builder = new Request.Builder();
-            builder = builder.url("http://192.168.122.33:8080/NetworkProjectServer/get_list.jsp");
+            builder = builder.url("http://192.168.122.85:8080/NetworkProjectServer/get_list.jsp");
             Request request = builder.build();
             Call call=client.newCall(request);
             NetworkDataCallback nc = new NetworkDataCallback();
@@ -295,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements List_Adapter.List
             try{
                 OkHttpClient client = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
-                builder = builder.url("http://192.168.122.33:8080/NetworkProjectServer/delete_list.jsp");
+                builder = builder.url("http://192.168.122.85:8080/NetworkProjectServer/delete_list.jsp");
 
                 FormBody.Builder builder2 = new FormBody.Builder();
                 builder2.add("idea_idx", String.valueOf(idx));
