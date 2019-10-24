@@ -13,6 +13,9 @@ APK파일을 이용한 설치 또는 클론 다운 이후 안드로이드 스튜
 <img src="./start.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 앱 실행시 뜨는 화면  
 
+<img src="./show.png" width="240px" height="480px" title="start" alt="start"></img><br/>
+아이디어를 터치시 뜨는 화면  
+
 <img src="./add.png" width="240px" height="480px" title="start" alt="start"></img><br/>
 우하단에 있는 빨간 버튼을 누를시 뜨는 아이디어 추가 다이어그램  
 
