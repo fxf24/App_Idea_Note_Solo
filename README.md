@@ -10,7 +10,7 @@ APK파일을 이용한 설치 또는 클론 다운 이후 안드로이드 스튜
 
 사용법 (Getting Started)
 -------------
-<img src="./start.jpg" width="450px" height="300px" title="start" alt="start"></img><br/>
+<img src="./start.png" width="450px" height="300px" title="start" alt="start"></img><br/>
 앱 실행 이후 동작
 
 파일 정보 및 목록 (File Manifest)
